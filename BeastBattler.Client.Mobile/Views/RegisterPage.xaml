@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="BeastBattler.Client.Mobile.Views.RegisterPage"
+             xmlns:viewmodel="clr-namespace:BeastBattler.Client.Mobile.ViewModels"
+             x:DataType="viewmodel:RegisterPageViewModel"
+             Shell.FlyoutBehavior="Disabled"
+             Title="{Binding Title}">
+
+    <StackLayout Padding="20">
+        <Label Text="Register an account" FontSize="24" HorizontalOptions="Center" Margin="0,0,0,20" />
+        <Entry Placeholder="Email" Text="{Binding User.Email}" />
+        <Entry Placeholder="Password" Text="{Binding User.Password}" IsPassword="True" Margin="0,10,0,0" />
+        <Button Text="Sign up" Command="{Binding SignUpCommandCommand}" Margin="0,20,0,0" />
+        <Button Text="Back" Command="{Binding GoBackCommand}" Margin="0,20,0,0" />
+    </StackLayout>
+
+</ContentPage>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:model="clr-namespace:BeastBattler.Client.Mobile.Models"
+             xmlns:viewmodel="clr-namespace:BeastBattler.Client.Mobile.ViewModels"
+             x:DataType="viewmodel:CagesPageViewModel"
+             x:Class="BeastBattler.Client.Mobile.Views.CagesPage"
+             Title="{Binding Title}">
+
+    <ScrollView>
+        <StackLayout>
+            <CollectionView BackgroundColor="Transparent" ItemsSource="{Binding Cages}" SelectionMode="None">
+                <CollectionView.EmptyView>
+                    <StackLayout VerticalOptions="Center" HorizontalOptions="Center" WidthRequest="250" HeightRequest="300">
+                        <Image Source="nodata.png" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" Aspect="AspectFill"></Image>
+                        <Label Text="No cages found" VerticalOptions="Center" HorizontalOptions="Center" FontSize="21" Padding="20"></Label>
+                    </StackLayout>
+                </CollectionView.EmptyView>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="model:Cage">
+                        <Grid Padding="10">
+                            <Frame HeightRequest="125" Padding="0" Style="{StaticResource CardView}">
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer NumberOfTapsRequired="2" 
+                                                          CommandParameter="{Binding .}" 
+                                                          Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:CagesPageViewModel}}, Path=GoToDetailsCommand}"/>
+                                </Frame.GestureRecognizers>
+                                <Grid Padding="0" ColumnDefinitions="125, *">
+                                    <Image Source="cage.svg" HeightRequest="125" WidthRequest="125" Aspect="AspectFill"/>
+
+                                    <VerticalStackLayout Grid.Column="1" Padding="10" VerticalOptions="Center">
+                                        <Label Text="{Binding Name}" Style="{StaticResource LargeLabel}"></Label>
+                                        <Label Text="{Binding Status, StringFormat='Full: {0}'}" Style="{StaticResource MediumLabel}"></Label>
+                                        <Label Text="{Binding Capacity, StringFormat='Capacity: {0}'}" Style="{StaticResource MediumLabel}"></Label>
+                                    </VerticalStackLayout>
+                                </Grid>
+                            </Frame>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <Button Text="Add Cage" Margin="8" 
+                    Command="{Binding GoAddCageCommand}" 
+                    Style="{StaticResource ButtonOutline}"></Button>
+        </StackLayout>
+    </ScrollView>
+</ContentPage>
