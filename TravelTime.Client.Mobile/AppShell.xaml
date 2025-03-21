@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="TravelTime.Client.Mobile.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:TravelTime.Client.Mobile"
+    xmlns:views="clr-namespace:TravelTime.Client.Mobile.Views"
+    Shell.FlyoutBehavior="Flyout"
+    Shell.FlyoutWidth="200"
+    Title="TravelTime.Client.Mobile"
+    >
+
+    <Shell.Resources>
+        <ResourceDictionary>
+            <Style x:Key="BaseStyle" TargetType="Element">
+                <Setter Property="Shell.BackgroundColor" Value="{StaticResource Primary}" />
+                <Setter Property="Shell.TitleColor" Value="White" />
+                <Setter Property="Shell.ForegroundColor" Value="White" />
+            </Style>
+            <Style BasedOn="{StaticResource BaseStyle}" TargetType="ShellItem" ApplyToDerivedTypes="True" />
+        </ResourceDictionary>
+    </Shell.Resources>
+
+    <Shell.FlyoutHeader>
+        <Label Text="Navigation" HorizontalTextAlignment="Center" Padding="20" FontSize="20"></Label>
+    </Shell.FlyoutHeader>
+
+    <ShellContent
+        Title="Login"
+        ContentTemplate="{DataTemplate views:LoginPage}"
+        Route="LoginPage"
+        FlyoutItemIsVisible="False"
+        />
+
+    <ShellContent
+        Title="Home"
+        ContentTemplate="{DataTemplate local:MainPage}"
+        Route="MainPage"
+        Icon="home.svg"
+        />
+
+    <ShellContent
+        Title="Flight Search"
+        ContentTemplate="{DataTemplate views:FlightSearchPage}"
+        Route="FlightSearchPage"
+        Icon="plane.svg"
+        />
+
+    <ShellContent
+        Title="My Booked Trips"
+        ContentTemplate="{DataTemplate views:MyAccountPage}"
+        Route="MyAccountPage"
+        Icon="user.svg"
+        />
+
+    <MenuItem Text="Logout" Clicked="Logout_Clicked" IconImageSource="logout.svg"/>
+
+</Shell>

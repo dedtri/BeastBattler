@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TravelTime.Client.Mobile.MainPage">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="30,0" Spacing="20">
+
+            <Label Text="Welcome to TravelTime!" 
+                   FontSize="40" 
+                   FontAttributes="Bold" 
+                   HorizontalOptions="Center" 
+                   TextColor="RoyalBlue" 
+                   Margin="0,50,0,0" />
+
+            <Label Text="Your ultimate travel planning companion."
+                   FontSize="22" 
+                   HorizontalOptions="Center" 
+                   TextColor="DarkGray" />
+
+            <Button Text="Start Planning Your Trip"
+                    HorizontalOptions="Center"
+                    BackgroundColor="RoyalBlue"
+                    TextColor="White"
+                    Padding="10, 15"
+                    CornerRadius="20"
+                    Clicked="OnStartPlanningClicked" />
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>

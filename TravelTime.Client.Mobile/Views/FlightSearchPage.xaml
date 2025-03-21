@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:model="clr-namespace:TravelTime.Client.Mobile.Models"
+             xmlns:viewmodel="clr-namespace:TravelTime.Client.Mobile.ViewModels"
+             xmlns:sys="clr-namespace:System;assembly=netstandard"
+             x:DataType="viewmodel:FlightSearchViewModel"
+             x:Class="TravelTime.Client.Mobile.Views.FlightSearchPage"
+             Title="{Binding Title}">
+
+    <ScrollView>
+        <VerticalStackLayout Spacing="20" Padding="20">
+
+            <!-- Flight Search Section -->
+            <Frame Padding="15" CornerRadius="15" BackgroundColor="White">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="Find Your Flight" FontSize="28" FontAttributes="Bold" HorizontalOptions="Center" />
+                    <Entry x:Name="FromEntry" Placeholder="Enter Departure Airport (e.g., JFK)" />
+                    <Entry x:Name="ToEntry" Placeholder="Enter Destination Airport (e.g., LAX)" />
+
+                    <HorizontalStackLayout HorizontalOptions="Center" Spacing="10">
+                        <VerticalStackLayout>
+                            <Label Text="Departure Date" FontSize="12" FontAttributes="Bold"/>
+                            <DatePicker x:Name="FromDatePicker" MinimumDate="{x:Static sys:DateTime.Now}" WidthRequest="130" />
+                        </VerticalStackLayout>
+
+                        <VerticalStackLayout>
+                            <Label Text="Return Date" FontSize="12" FontAttributes="Bold"/>
+                            <DatePicker x:Name="ToDatePicker" MinimumDate="{x:Static sys:DateTime.Now}" WidthRequest="130" />
+                        </VerticalStackLayout>
+                    </HorizontalStackLayout>
+
+                    <Button Text="Search Flights" Clicked="OnSearchFlightsClicked" BackgroundColor="#4A90E2" TextColor="White" CornerRadius="10" FontAttributes="Bold"/>
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Flight Results Section -->
+            <CollectionView ItemsSource="{Binding FlightResults}" SelectionMode="None" VerticalOptions="FillAndExpand">
+
+                <!-- No Flights Found -->
+                <CollectionView.EmptyView>
+                    <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center">
+                        <Image Source="nodata.png" WidthRequest="200" HeightRequest="200"/>
+                        <Label Text="No flights found" FontSize="18" FontAttributes="Bold" Padding="10" />
+                    </VerticalStackLayout>
+                </CollectionView.EmptyView>
+
+                <!-- Flight Result Template -->
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="model:Flight">
+                        <Frame Padding="15" CornerRadius="15" BackgroundColor="White">
+                            <Grid Padding="5" ColumnDefinitions="3*, 100">
+
+                                <VerticalStackLayout Grid.Column="0" Spacing="5">
+                                    <Label Text="{Binding Airline}" FontSize="16" FontAttributes="Bold" TextColor="#4A90E2" />
+                                    <Label Text="{Binding Price}" FontSize="16" FontAttributes="Bold" />
+                                    <Label Text="{Binding DepartureTime, StringFormat='Departure: {0}'}" />
+                                    <Label Text="{Binding ArrivalTime, StringFormat='Arrival: {0}'}" />
+                                    <Label Text="{Binding FlightDuration, StringFormat='Duration: {0}'}" />
+                                    <Label Text="{Binding Stops, StringFormat='Stops: {0}'}" />
+                                </VerticalStackLayout>
+
+                                <Button Text="Book Flight"
+                                        Grid.Column="1"
+                                        BackgroundColor="Green"
+                                        TextColor="White"
+                                        CornerRadius="10"
+                                        FontSize="14"
+                                        Padding="10"
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:FlightSearchViewModel}}, Path=BookFlightCommand}"
+                                        CommandParameter="{Binding .}"/>
+                            </Grid>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
